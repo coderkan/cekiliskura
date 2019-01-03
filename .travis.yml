@@ -1,0 +1,18 @@
+sudo: required
+addons:
+  chrome: stable
+
+language: node_js
+node_js:
+  - "10"
+
+branches:
+  only:
+    - /.*/
+
+before_script:
+  - npm install -g @angular/cli
+
+script:
+  - ng build --prod --aot
+  - ng test
