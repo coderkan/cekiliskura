@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  links = [
+    { name: 'Çarklı Kura', link: '/winwheel' },
+    { name: 'Kura Çek', link: '/drawlots' }
+  ];
+  
   constructor() { }
 
   ngOnInit() {

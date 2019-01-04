@@ -22,6 +22,10 @@ import { DrawLotsComponent } from './components/draw-lots/draw-lots.component';
     BrowserModule,
     AppRoutingModule
   ],
+  exports: [
+    HeaderComponent,
+    FooterComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
