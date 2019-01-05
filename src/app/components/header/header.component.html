@@ -1,25 +1,18 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-between" >
+<nav class="navbar navbar-expand-lg  justify-content-between">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
     aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <i class="fas fa-bars" style="color:white;"></i>
     </button>
-  <a class="navbar-brand" href="#">
-        <i class='fab fa-github'></i>
-        Çekiliş Kura
-      </a>
+  <div class="navbar-brand">
+    <img src="../../assets/logo.png" height="36" width="36"> Çekiliş Kura
+  </div>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li *ngFor="let link of links" class="nav-item active">
-        <a class="nav-link" routerLink={{link.link}} > {{ link.name }}</a>
+      <li *ngFor="let link of links" class="nav-item">
       </li>
     </ul>
   </div>
-  <a id="navBar" class="navbar-brand" href="#" >
-      <i class='fab fa-github'></i>
-    <!--  
-      <span style="font-size: 2em; color: white;">
-        <i class='fab fa-github'></i>
-      </span>
-    -->
-    </a>     
+  <a id="navBar" class="navbar-brand" href="#" style="font-size: 2em; color:white;">
+    <i class='fab fa-github'></i>
+  </a>
 </nav>

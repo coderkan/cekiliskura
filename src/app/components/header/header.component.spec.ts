@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
@@ -7,24 +7,23 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
 
   beforeEach(async(() => {
-    /*
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [ HeaderComponent ]
     })
     .compileComponents();
-    */
   }));
 
   beforeEach(() => {
-    /*
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();*/
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    //expect(component).toBeTruthy();
-    expect(1).toEqual(1);
+    expect(component).toBeTruthy();
   });
  
 });

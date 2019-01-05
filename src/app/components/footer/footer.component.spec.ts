@@ -20,8 +20,7 @@ describe('FooterComponent', () => {
   });
 
   it('should create', () => {
-    //expect(component).toBeTruthy();
-    expect(1).toEqual(1);
+    expect(component).toBeTruthy();
   });
   
 });
