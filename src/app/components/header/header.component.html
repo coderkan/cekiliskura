@@ -8,11 +8,12 @@
   </div>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <li *ngFor="let link of links" class="nav-item">
+      <li *ngFor="let link of links" class="nav-item active">
+        <a class="navbar-brand c-white" routerLink={{link.link}}> {{ link.name }}</a>
       </li>
     </ul>
   </div>
-  <a id="navBar" class="navbar-brand" href="#" style="font-size: 2em; color:white;">
-    <i class='fab fa-github'></i>
+  <a id="navBar" class="navbar-brand" href="https://github.com/coderkan">
+    <i class='fab fa-github fa-2x'></i>
   </a>
 </nav>
