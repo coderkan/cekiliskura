@@ -2,6 +2,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { describe, expect, beforeEach, it} from 'karma-jasmine'
+//import {describe, expect } from 'karma'
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -14,7 +15,6 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
   }));
-  /*
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
@@ -24,14 +24,14 @@ describe('AppComponent', () => {
   it(`should have as title 'cekiliskura'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    //expect(app.title).toEqual('cekiliskura');
+    expect(app.title).toEqual('cekiliskura');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-  //expect(compiled.querySelector('h1').textContent).toContain('Welcome to cekiliskura!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to cekiliskura!');
   });
-  */
+
 });

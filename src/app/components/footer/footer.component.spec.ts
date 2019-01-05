@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
 import { describe, expect, beforeEach, it} from 'karma-jasmine'
+//import {describe, expect } from 'karma'
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
