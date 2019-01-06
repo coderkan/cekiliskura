@@ -1,4 +1,4 @@
-.footer {
+.footer-container {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -8,9 +8,13 @@
     text-align: center;
 }
 
-.footer{
+.footer-container{
+    position: absolute;
+    width: 100%;
     background: #1976d2;
     color: white;
+    position: fixed;
+    padding: 10px;
 }
 
 

@@ -8,6 +8,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
 import { WinWheelComponent } from './components/win-wheel/win-wheel.component';
 import { DrawLotsComponent } from './components/draw-lots/draw-lots.component';
+import { InputItemComponent } from './components/input-item/input-item.component';
+import { AdvertisementComponent } from './components/advertisement/advertisement.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { DrawLotsComponent } from './components/draw-lots/draw-lots.component';
     FooterComponent,
     HomeComponent,
     WinWheelComponent,
-    DrawLotsComponent
+    DrawLotsComponent,
+    InputItemComponent,
+    AdvertisementComponent
   ],
   imports: [
     BrowserModule,
