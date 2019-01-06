@@ -1,21 +1,16 @@
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-}
 
-.footer{
+
+.footer-container{
+    width: 100%;
     background: #1976d2;
     color: white;
+    padding: 10px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: static;
+    text-align: center;
 }
-
-
-
-
 
 ul{
     /*list-style-type: none;*/

@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+body, html {
+    height: 90%;
+}
 
 fa-twitter{
     -o-transition: .5s;
@@ -59,3 +62,15 @@ fa-twitter{
 .c-white{
     color: white;
 }
+ 
+#body-container{
+    bottom: 0;
+    width: 100%; 
+    margin-bottom: 2em;
+    min-height: 100%;
+    overflow: auto;
+    padding: 0 2em;
+    text-align: justify;
+}
+
+ 
