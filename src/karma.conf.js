@@ -15,6 +15,11 @@ module.exports = function (config) {
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
+    webpack: { 
+      node: { 
+        fs: 'empty' 
+      } 
+    },
     coverageIstanbulReporter: {
       dir: require('path').join(__dirname, '../coverage'),
       reports: ['html', 'lcovonly', 'text-summary'],
@@ -25,14 +30,14 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-	browsers: ['ChromeHeadless'],
-		// you can define custom flags
-		customLaunchers: {
-			ChromeHeadlessNoSandbox: {
-				base: 'ChromeHeadless',
-				flags: ['--no-sandbox']
-			}
-	},
+    browsers: ['ChromeHeadless'],
+      // you can define custom flags
+      customLaunchers: {
+        ChromeHeadlessNoSandbox: {
+          base: 'ChromeHeadless',
+          flags: ['--no-sandbox']
+        }
+    },
     singleRun: true
   });
 };

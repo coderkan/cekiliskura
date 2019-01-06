@@ -1,0 +1,37 @@
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+
+.footer{
+    background: #1976d2;
+    color: white;
+}
+
+
+
+
+
+ul{
+    /*list-style-type: none;*/
+    overflow: hidden;
+}
+
+li{
+    float: none;
+    display: inline-block;
+}
+
+a{
+    padding: 4px;
+    background-color: transparent;
+    text-decoration: none;
+    color: white;
+}
+
+ 
