@@ -10,6 +10,13 @@ import { WinWheelComponent } from './components/win-wheel/win-wheel.component';
 import { DrawLotsComponent } from './components/draw-lots/draw-lots.component';
 import { InputItemComponent } from './components/input-item/input-item.component';
 import { AdvertisementComponent } from './components/advertisement/advertisement.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule, MatAutocompleteModule } from '@angular/material/';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+ 
 
 @NgModule({
   declarations: [
@@ -24,7 +31,15 @@ import { AdvertisementComponent } from './components/advertisement/advertisement
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatChipsModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatAutocompleteModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     HeaderComponent,
