@@ -3,20 +3,21 @@
 </p>
 <mat-form-field class="example-chip-list">
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let fruit of fruits" [selectable]="selectable" [removable]="removable" (removed)="remove(fruit)">
-      {{fruit}}
+    <mat-chip *ngFor="let item of items" [selectable]="selectable" [removable]="removable" (removed)="remove(item)">
+      {{item}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input placeholder="New fruit..." #fruitInput [formControl]="fruitCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+    <input placeholder="Öğe ekle..." #itemInput [formControl]="itemCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
       [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-      {{fruit}}
+    <mat-option *ngFor="let fitem of filteredItems | async" [value]="fitem">
+      {{fitem}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
 
 <div class="form-group" style="text-align: center;">
-  <button type="button" class="btn btn-outline-primary">Ekle</button>
+  <button type="button" class="btn btn-outline-primary mr-1" (click)="loadData()">Yükle</button>
+  <button type="button" class="btn btn-outline-primary ml-1" (click)="items.clear()">Temizle</button>
 </div>
