@@ -1,7 +1,7 @@
 # Cekiliskura
 
 [![Build Status](https://travis-ci.org/coderkan/cekiliskura.svg?branch=master)](https://travis-ci.org/coderkan/cekiliskura)
-
+[![Code Coverage](https://codecov.io/github/coderkan/cekiliskura/coverage.svg)](https://codecov.io/gh/coderkan/cekiliskura)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
