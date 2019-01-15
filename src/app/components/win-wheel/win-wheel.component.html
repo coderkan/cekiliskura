@@ -1,43 +1,8 @@
-<p>
-  win-wheel works!
-</p>
-<div align="center">
-  <h1>Winwheel.js example wheel - basic code wheel</h1>
-  <p>Here is an example of a basic code drawn wheel which spins to a stop with the prize won alerted to the user.</p>
-  <br />
-  <p>Choose a power setting then press the Spin button. You will be alerted to the prize won when the spinning stops.</p>
-  <br />
-  <table cellpadding="0" cellspacing="0" border="0">
-    <tr>
-      <td>
-        <div class="power_controls">
-          <br />
-          <br />
-          <table class="power" cellpadding="10" cellspacing="0">
-            <tr>
-              <th align="center">Power</th>
-            </tr>
-            <tr>
-              <td width="78" align="center" id="pw3" (click)="powerSelected(3);">High</td>
-            </tr>
-            <tr>
-              <td align="center" id="pw2" (click)="powerSelected(2);">Med</td>
-            </tr>
-            <tr>
-              <td align="center" id="pw1" (click)="powerSelected(1);">Low</td>
-            </tr>
-          </table>
-          <br />
-          <img #spinButton id="spin_button" src="../../../assets/wheels/spin_off.png" alt="Spin" (click)="startSpin();" />
-          <br /><br /> &nbsp;&nbsp;
-          <a href="#" (click)="resetWheel()">Play Again</a><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(reset)
-        </div>
-      </td>
-      <td width="438" height="582" class="the_wheel" align="center" valign="center">
-        <canvas id="canvas" width="434" height="434">
-          <p style="color: white;" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
-        </canvas>
-      </td>
-    </tr>
-  </table>
+<div id="canvasContainer" align="center" style="background-color:red;">
+  <!-- Always set canvas to largest desired size, i.e. desktop PC size, it will be scaled down for smaller devices but never scaled up -->
+  <canvas id="canvas" width="500" height="500" style="background-color: transparent; z-index:1;" data-responsiveMinWidth="180"
+    data-responsiveScaleHeight="true" (click)="startSpin();">
+    <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+  </canvas>
+  <img id="prizePointer" class="center" src="../../../assets/basic_pointer.png" width="30" height="30" alt="V" />
 </div>

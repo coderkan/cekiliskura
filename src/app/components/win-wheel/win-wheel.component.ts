@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
+import { HostListener } from '@angular/core';
 declare var Winwheel: any;
 
 @Component({
@@ -18,10 +19,13 @@ export class WinWheelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    // Create winwheel as per normal.
     this.theWheel = new Winwheel({
+      'canvasId': 'canvas',
+      'pointerAngle': 0,
       'numSegments': 8,     // Specify number of segments.
-      'outerRadius': 212,   // Set outer radius so wheel fits inside the background.
       'textFontSize': 28,    // Set font size as desired.
+      'responsive': true,  // This wheel is responsive!
       'segments':        // Define segments including colour and text.
       [
         { 'fillStyle': '#eae56f', 'text': 'Prize 1' },
@@ -33,16 +37,65 @@ export class WinWheelComponent implements OnInit {
         { 'fillStyle': '#7de6ef', 'text': 'Prize 7' },
         { 'fillStyle': '#e7706f', 'text': 'Prize 8' }
       ],
+      'pins':
+      {
+        'outerRadius': 6,
+        'responsive': true, // This must be set to true if pin size is to be responsive, if not just location is.
+      },
       'animation':           // Specify the animation to use.
       {
         'type': 'spinToStop',
         'duration': 5,     // Duration in seconds.
         'spins': 8,     // Number of complete spins.
-        'callbackFinished': this.alertPrize
+        'callbackFinished': this.alertPrize,
       }
     });
+    var width = document.getElementById('canvasContainer').offsetWidth;
+    var widthOriginal = width;
+    width = width * 0.70;
+    document.getElementById('canvas').style.width = '' + width + "px";
+    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2)) + 'px';
+    console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
+
+    /*
+    // Draw triangle on the first canvas by getting the canvas
+    // then using its 2d context to draw lines to make a triangle.
+    let tcanvas = document.getElementById('canvas');
+    let tx = tcanvas.getContext('2d');
+
+    // Ensure that have context before calling function to draw.
+    if (tx) {
+      this.drawTriangle(tx);
+    }
+    */
+
   }
 
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    var width = document.getElementById('canvasContainer').offsetWidth;
+    var widthOriginal = width;
+    width = width * 0.70;
+    document.getElementById('canvas').style.width = '' + width + "px";
+    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 2) + 'px';
+    console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
+
+  }
+
+  // Put draw code in a function since would have to call this
+  // each frame of the animation to re-draw the pointer.
+  drawTriangle(tx) {
+    tx.strokeStyle = '#000000';     // Set line colour.
+    tx.fillStyle = 'aqua';        // Set fill colour.
+    tx.lineWidth = 2;
+    tx.beginPath();                 // Begin path.
+    tx.moveTo(175, 20);             // Move to initial position.
+    tx.lineTo(235, 20);             // Draw lines to make the shape.
+    tx.lineTo(205, 80);
+    tx.lineTo(176, 20);
+    tx.stroke();                    // Complete the path by stroking (draw lines).
+    tx.fill();                      // Then fill with colour.
+  }
 
   // -------------------------------------------------------
   // Function to handle the onClick on the power buttons.
@@ -78,10 +131,24 @@ export class WinWheelComponent implements OnInit {
       document.getElementById('spin_button').className = "clickable";
     }
   }
+
+  // Called by the onClick of the canvas, starts the spinning.
+  startSpin() {
+    // Stop any current animation.
+    this.theWheel.stopAnimation(false);
+
+    // Reset the rotation angle to less than or equal to 360 so spinning again
+    // works as expected. Setting to modulus (%) 360 keeps the current position.
+    this.theWheel.rotationAngle = this.theWheel.rotationAngle % 360;
+
+    // Start animation.
+    this.theWheel.startAnimation();
+  }
+
   // -------------------------------------------------------
   // Click handler for spin button.
   // -------------------------------------------------------
-  startSpin() {
+  startSpinx() {
     // Ensure that spinning can't be clicked again while already running.
     if (this.wheelSpinning == false) {
       // Based on the power level selected adjust the number of spins for the wheel, the more times is has
