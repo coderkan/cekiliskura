@@ -19,6 +19,8 @@ export class WinWheelComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    let audio = new Audio('../../../assets/tick.mp3');
+    audio.play();
     // Create winwheel as per normal.
     this.theWheel = new Winwheel({
       'canvasId': 'canvas',
@@ -40,14 +42,17 @@ export class WinWheelComponent implements OnInit {
       'pins':
       {
         'outerRadius': 6,
+        'number': 16,
         'responsive': true, // This must be set to true if pin size is to be responsive, if not just location is.
       },
       'animation':           // Specify the animation to use.
       {
         'type': 'spinToStop',
-        'duration': 5,     // Duration in seconds.
+        'duration': 13,     // Duration in seconds.
         'spins': 8,     // Number of complete spins.
         'callbackFinished': this.alertPrize,
+        'callbackSound' : this.playSound,    // Specify function to call when sound is to be triggered.
+        'soundTrigger'  : 'pin'         // Pins trigger the sound for this animation.
       }
     });
     var width = document.getElementById('canvasContainer').offsetWidth;
@@ -58,18 +63,6 @@ export class WinWheelComponent implements OnInit {
     console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
     var rect = document.getElementById('canvas').getBoundingClientRect();
     console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
-
-    /*
-    // Draw triangle on the first canvas by getting the canvas
-    // then using its 2d context to draw lines to make a triangle.
-    let tcanvas = document.getElementById('canvas');
-    let tx = tcanvas.getContext('2d');
-
-    // Ensure that have context before calling function to draw.
-    if (tx) {
-      this.drawTriangle(tx);
-    }
-    */
 
   }
 
@@ -84,6 +77,19 @@ export class WinWheelComponent implements OnInit {
     var rect = document.getElementById('canvas').getBoundingClientRect();
     console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
 
+  }
+
+  playSound()
+  {
+    let audio = new Audio('../../../assets/tick.mp3');
+    audio.load();
+      // Stop and rewind the sound (stops it if already playing).
+    audio.pause();
+    audio.currentTime = 0;
+    
+      // Play the sound.
+    audio.play();
+ 
   }
 
   // Put draw code in a function since would have to call this
