@@ -1,8 +1,11 @@
-<div id="canvasContainer" align="center" style="background-color:red;">
+
+  <img id="prizePointer" class="center" src="../../../assets/basic_pointer.png" width="30" height="30" alt="V" style="background-color:transparent;"/>
+<div id="canvasContainer" align="center" style="background-color:transparent; margin-top: 10px;">
   <!-- Always set canvas to largest desired size, i.e. desktop PC size, it will be scaled down for smaller devices but never scaled up -->
+
   <canvas id="canvas" width="500" height="500" style="background-color: transparent; z-index:1;" data-responsiveMinWidth="180"
     data-responsiveScaleHeight="true" (click)="startSpin();">
     <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
   </canvas>
-  <img id="prizePointer" class="center" src="../../../assets/basic_pointer.png" width="30" height="30" alt="V" />
+
 </div>

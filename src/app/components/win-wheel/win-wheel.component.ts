@@ -54,8 +54,10 @@ export class WinWheelComponent implements OnInit {
     var widthOriginal = width;
     width = width * 0.70;
     document.getElementById('canvas').style.width = '' + width + "px";
-    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2)) + 'px';
+    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
     console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
+    var rect = document.getElementById('canvas').getBoundingClientRect();
+    console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
 
     /*
     // Draw triangle on the first canvas by getting the canvas
@@ -77,8 +79,10 @@ export class WinWheelComponent implements OnInit {
     var widthOriginal = width;
     width = width * 0.70;
     document.getElementById('canvas').style.width = '' + width + "px";
-    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 2) + 'px';
+    document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
     console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
+    var rect = document.getElementById('canvas').getBoundingClientRect();
+    console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
 
   }
 
