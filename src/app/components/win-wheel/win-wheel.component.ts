@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
+import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.service';
 declare var Winwheel: any;
 
 @Component({
@@ -16,7 +17,7 @@ export class WinWheelComponent implements OnInit {
   theWheel: any;
 
   @ViewChild('spinButton') spinButton: ElementRef<HTMLInputElement>;
-  constructor() { }
+  constructor(private service: InputWheelService) { }
 
   ngOnInit() {
     let audio = new Audio('../../../assets/tick.mp3');
@@ -25,19 +26,13 @@ export class WinWheelComponent implements OnInit {
     this.theWheel = new Winwheel({
       'canvasId': 'canvas',
       'pointerAngle': 0,
-      'numSegments': 8,     // Specify number of segments.
+      'numSegments': 2,     // Specify number of segments.
       'textFontSize': 28,    // Set font size as desired.
       'responsive': true,  // This wheel is responsive!
       'segments':        // Define segments including colour and text.
       [
-        { 'fillStyle': '#eae56f', 'text': 'Prize 1' },
-        { 'fillStyle': '#89f26e', 'text': 'Prize 2' },
-        { 'fillStyle': '#7de6ef', 'text': 'Prize 3' },
-        { 'fillStyle': '#e7706f', 'text': 'Prize 4' },
-        { 'fillStyle': '#eae56f', 'text': 'Prize 5' },
-        { 'fillStyle': '#89f26e', 'text': 'Prize 6' },
-        { 'fillStyle': '#7de6ef', 'text': 'Prize 7' },
-        { 'fillStyle': '#e7706f', 'text': 'Prize 8' }
+        { 'fillStyle': '#eae56f', 'text': 'Welcome To' },
+        { 'fillStyle': '#89f26e', 'text': 'CekilisKura' },
       ],
       'pins':
       {
@@ -51,19 +46,43 @@ export class WinWheelComponent implements OnInit {
         'duration': 13,     // Duration in seconds.
         'spins': 8,     // Number of complete spins.
         'callbackFinished': this.alertPrize,
-        'callbackSound' : this.playSound,    // Specify function to call when sound is to be triggered.
-        'soundTrigger'  : 'pin'         // Pins trigger the sound for this animation.
+        'callbackSound': this.playSound,    // Specify function to call when sound is to be triggered.
+        'soundTrigger': 'pin'         // Pins trigger the sound for this animation.
       }
     });
+
+
+
     var width = document.getElementById('canvasContainer').offsetWidth;
     var widthOriginal = width;
     width = width * 0.70;
     document.getElementById('canvas').style.width = '' + width + "px";
     document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
-    console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
     var rect = document.getElementById('canvas').getBoundingClientRect();
-    console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
 
+
+    // listen loaded values from input item component.
+    this.service.list.subscribe(l => {
+      if (l.length != 0)
+        this.removeAllSegments();
+      l.forEach(el => {
+        let newSegment = this.theWheel.addSegment(); // Add segment
+        //'#'+Math.floor(Math.random()*16777215).toString(16);
+        newSegment.text = el;        // Set text and fillStyle using returned
+        newSegment.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);         // pointer to the segment object.
+        this.theWheel.draw();
+      });
+
+    })
+
+  }
+
+  removeAllSegments() {
+    for (var i = 0; i < this.theWheel.numSegments; i++) {
+      this.theWheel.deleteSegment();
+      this.theWheel.draw();
+    }
+    this.theWheel.numSegments = 0;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -73,23 +92,20 @@ export class WinWheelComponent implements OnInit {
     width = width * 0.70;
     document.getElementById('canvas').style.width = '' + width + "px";
     document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
-    console.log("Window has changed : " + window.innerWidth + " :: width :: " + width);
     var rect = document.getElementById('canvas').getBoundingClientRect();
-    console.log("-> " + rect.top, rect.right, rect.bottom, rect.left);
 
   }
 
-  playSound()
-  {
+  playSound() {
     let audio = new Audio('../../../assets/tick.mp3');
     audio.load();
-      // Stop and rewind the sound (stops it if already playing).
+    // Stop and rewind the sound (stops it if already playing).
     audio.pause();
     audio.currentTime = 0;
-    
-      // Play the sound.
+
+    // Play the sound.
     audio.play();
- 
+
   }
 
   // Put draw code in a function since would have to call this
