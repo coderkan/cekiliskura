@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {ElementRef, ViewChild} from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete} from '@angular/material';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { ElementRef, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from '@angular/material';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.service';
 
 @Component({
   selector: 'app-input-item',
@@ -13,9 +14,6 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class InputItemComponent implements OnInit {
 
- 
-  ngOnInit() {
-  }
   visible = true;
   selectable = true;
   removable = true;
@@ -24,16 +22,19 @@ export class InputItemComponent implements OnInit {
   itemCtrl = new FormControl();
   filteredItems: Observable<string[]>;
   items;
-  
+
   @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor() {
+  constructor(private service: InputWheelService) {
     this.items = new Set();
     /*this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
         startWith(null),
         map((fruit: string | null) => this._filter(fruit)));
         */
+  }
+
+  ngOnInit() {
   }
 
   add(event: MatChipInputEvent): void {
@@ -58,7 +59,7 @@ export class InputItemComponent implements OnInit {
   }
 
   remove(fruit: string): void {
-    if(this.items.has(fruit)){
+    if (this.items.has(fruit)) {
       this.items.delete(fruit);
     }
   }
@@ -70,7 +71,9 @@ export class InputItemComponent implements OnInit {
   }
 
   loadData() {
-
+    let tmpArray: string[] = [];
+    this.items.forEach(element => { tmpArray.push(element); });
+    this.service.addString(tmpArray);
   }
 
 }

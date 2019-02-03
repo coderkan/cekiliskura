@@ -18,10 +18,9 @@ body
 /* Sets the background image for the wheel */
 td.the_wheel
 {
-    background-image: url(src/assets/wheels/wheel_back.png);
+    background-image: url(./wheel_back.png);
     background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% auto;
+    background-repeat: none;
 }
 
 /* Do some css reset on selected elements */
@@ -79,20 +78,4 @@ td.pw3
 .margin_bottom
 {
     margin-bottom: 5px;
-}
-
-#canvasContainers {
-    position: relative;
-    width: 300px;
-}
- 
-#canvas {
-    z-index: 1;
-}
- 
-#prizePointer {
-    position: absolute;
-    left: 50%;
-    top: 0px;
-    z-index: 999;
 }
