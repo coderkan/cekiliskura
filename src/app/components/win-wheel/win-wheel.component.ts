@@ -3,6 +3,7 @@ import { ElementRef, ViewChild } from '@angular/core';
 import { HostListener } from '@angular/core';
 import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.service';
 declare var Winwheel: any;
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-win-wheel',
@@ -14,13 +15,15 @@ export class WinWheelComponent implements OnInit {
   // Vars used by the code in this page to do power controls.
   wheelPower = 0;
   wheelSpinning: boolean = false;
-  theWheel: any;
+  theWheel: any = {};
+  winner = '';
 
   @ViewChild('spinButton') spinButton: ElementRef<HTMLInputElement>;
   constructor(private service: InputWheelService) { }
 
   ngOnInit() {
     let audio = new Audio('../../../assets/tick.mp3');
+    let selff = this;
     audio.play();
     // Create winwheel as per normal.
     this.theWheel = new Winwheel({
@@ -51,7 +54,7 @@ export class WinWheelComponent implements OnInit {
       }
     });
 
-
+    //this.theWheel.callbackFinished = this.alertPrize(selff, this.theWheel.getIndicatedSegment());
 
     var width = document.getElementById('canvasContainer').offsetWidth;
     var widthOriginal = width;
@@ -105,6 +108,18 @@ export class WinWheelComponent implements OnInit {
 
     // Play the sound.
     audio.play();
+  }
+
+  openSweetAlert(){
+
+    Swal.fire({
+      title: '<span style="color: white;">Tebrikler</span>',
+      html: '<h1><span style="color: white;">Erkan Güzeler</span></h1>',
+      background: '#fff url("/assets/fire2.gif")',
+      imageUrl:'/assets/cup4.png',
+      imageWidth: 60,
+      imageHeight: 100,
+    });
 
   }
 
@@ -222,8 +237,39 @@ export class WinWheelComponent implements OnInit {
   // note the indicated segment is passed in as a parmeter as 99% of the time you will want to know this to inform the user of their prize.
   // -------------------------------------------------------
   alertPrize(indicatedSegment) {
+    // indicatedSegment
     // Do basic alert of the segment text. You would probably want to do something more interesting with this information.
-    alert("You have won " + indicatedSegment.text);
+    //alert("You have won " + indicatedSegment.text);
+    //this.winner = indicatedSegment.text;
+    //debugger;
+    //let current = selff;
+    //let winningSegment = current.theWheel.getIndicatedSegment();
+    
+    Swal.fire({
+      title: '<span style="color: white;">Tebrikler</span>',
+      html: '<h1><span style="color: white;">' + indicatedSegment.text + '</span></h1>',
+      background: '#fff url("/assets/fire2.gif")',
+      imageUrl:'/assets/cup4.png',
+      imageWidth: 60,
+      imageHeight: 100,
+    }).then(() =>{
+      //current.winner = indicatedSegment.text;
+      console.log(":: Value is Good ::");
+    });
+    
+    /*.then(function(){
+      () => current.winner = 'Erkannn';
+      //current.winner = indicatedSegment.text;
+        console.log(":: Value is Good ::" + current.winner);
+        //this.setData(indicatedSegment.text);
+    });
+    */
+
+  }
+
+  setData(data: any){
+    console.log(":D:D:D " + data);
+    //this.winner = data;
   }
 
 }

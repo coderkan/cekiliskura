@@ -7,5 +7,11 @@
     data-responsiveScaleHeight="true" (click)="startSpin();">
     <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
   </canvas>
-
+  <div align="center">
+    <h3>Kazanan</h3>
+    <h2>{{ winner }}</h2>
+  </div>
 </div>
+<button class="btn btn-success" (click)="openSweetAlert()">
+  Click Me
+</button>
