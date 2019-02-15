@@ -4,14 +4,15 @@
   <!-- Always set canvas to largest desired size, i.e. desktop PC size, it will be scaled down for smaller devices but never scaled up -->
 
   <canvas id="canvas" width="500" height="500" style="background-color: transparent; z-index:1;" data-responsiveMinWidth="180"
-    data-responsiveScaleHeight="true" (click)="startSpin();">
-    <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+    data-responsiveScaleHeight="true">
+    <p style="color: white;" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
   </canvas>
   <div align="center">
-    <h3>Kazanan</h3>
-    <h2>{{ winner }}</h2>
+    <button class="btn btn-outline-primary btn-lg btn-block" align="center" (click)="startSpin();">Çarkı Çevir</button>
+    <div class="row bg-primary">
+
+    </div>
+    <h3 style="color:#007bff;">Kazanan</h3>
+    <h2 id="_winner" style="color:#007bff;"></h2>
   </div>
 </div>
-<button class="btn btn-success" (click)="openSweetAlert()">
-  Click Me
-</button>

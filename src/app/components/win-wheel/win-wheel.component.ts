@@ -4,6 +4,7 @@ import { HostListener } from '@angular/core';
 import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.service';
 declare var Winwheel: any;
 import Swal from 'sweetalert2';
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-win-wheel',
@@ -13,18 +14,38 @@ import Swal from 'sweetalert2';
 export class WinWheelComponent implements OnInit {
 
   // Vars used by the code in this page to do power controls.
-  wheelPower = 0;
   wheelSpinning: boolean = false;
   theWheel: any = {};
   winner = '';
+  isRunning: boolean = false;
 
   @ViewChild('spinButton') spinButton: ElementRef<HTMLInputElement>;
   constructor(private service: InputWheelService) { }
 
   ngOnInit() {
     let audio = new Audio('../../../assets/tick.mp3');
-    let selff = this;
-    audio.play();
+    this.winner = "------";
+    $('#_winner').text(this.winner);
+
+    let swalAlert = (indSgm) => {
+      Swal.fire({
+        title: '<span style="color: white;">Tebrikler</span>',
+        html: '<h1><span style="color: white;">' + indSgm.text + '</span></h1>',
+        background: '#fff url("/assets/fire2.gif")',
+        imageUrl: '/assets/cup4.png',
+        imageWidth: 60,
+        imageHeight: 100,
+      });
+    };
+
+    let onComplete = (indSgm) => {
+      this.isRunning = false;
+      this.winner = indSgm.text;
+      $('#_winner').text(indSgm.text);
+      swalAlert(indSgm);
+    };
+
+    // audio.play();
     // Create winwheel as per normal.
     this.theWheel = new Winwheel({
       'canvasId': 'canvas',
@@ -48,13 +69,11 @@ export class WinWheelComponent implements OnInit {
         'type': 'spinToStop',
         'duration': 13,     // Duration in seconds.
         'spins': 8,     // Number of complete spins.
-        'callbackFinished': this.alertPrize,
+        'callbackFinished': onComplete,
         'callbackSound': this.playSound,    // Specify function to call when sound is to be triggered.
         'soundTrigger': 'pin'         // Pins trigger the sound for this animation.
       }
     });
-
-    //this.theWheel.callbackFinished = this.alertPrize(selff, this.theWheel.getIndicatedSegment());
 
     var width = document.getElementById('canvasContainer').offsetWidth;
     var widthOriginal = width;
@@ -63,14 +82,12 @@ export class WinWheelComponent implements OnInit {
     document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
     var rect = document.getElementById('canvas').getBoundingClientRect();
 
-
     // listen loaded values from input item component.
     this.service.list.subscribe(l => {
       if (l.length != 0)
         this.removeAllSegments();
       l.forEach(el => {
         let newSegment = this.theWheel.addSegment(); // Add segment
-        //'#'+Math.floor(Math.random()*16777215).toString(16);
         newSegment.text = el;        // Set text and fillStyle using returned
         newSegment.fillStyle = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);         // pointer to the segment object.
         this.theWheel.draw();
@@ -96,7 +113,6 @@ export class WinWheelComponent implements OnInit {
     document.getElementById('canvas').style.width = '' + width + "px";
     document.getElementById('prizePointer').style.left = '' + ((widthOriginal / 2) + 5) + 'px';
     var rect = document.getElementById('canvas').getBoundingClientRect();
-
   }
 
   playSound() {
@@ -110,71 +126,13 @@ export class WinWheelComponent implements OnInit {
     audio.play();
   }
 
-  openSweetAlert(){
-
-    Swal.fire({
-      title: '<span style="color: white;">Tebrikler</span>',
-      html: '<h1><span style="color: white;">Erkan Güzeler</span></h1>',
-      background: '#fff url("/assets/fire2.gif")',
-      imageUrl:'/assets/cup4.png',
-      imageWidth: 60,
-      imageHeight: 100,
-    });
-
-  }
-
-  // Put draw code in a function since would have to call this
-  // each frame of the animation to re-draw the pointer.
-  drawTriangle(tx) {
-    tx.strokeStyle = '#000000';     // Set line colour.
-    tx.fillStyle = 'aqua';        // Set fill colour.
-    tx.lineWidth = 2;
-    tx.beginPath();                 // Begin path.
-    tx.moveTo(175, 20);             // Move to initial position.
-    tx.lineTo(235, 20);             // Draw lines to make the shape.
-    tx.lineTo(205, 80);
-    tx.lineTo(176, 20);
-    tx.stroke();                    // Complete the path by stroking (draw lines).
-    tx.fill();                      // Then fill with colour.
-  }
-
-  // -------------------------------------------------------
-  // Function to handle the onClick on the power buttons.
-  // -------------------------------------------------------
-  powerSelected(powerLevel) {
-    // Ensure that power can't be changed while wheel is spinning.
-    if (this.wheelSpinning == false) {
-      // Reset all to grey incase this is not the first time the user has selected the power.
-      document.getElementById('pw1').className = "";
-      document.getElementById('pw2').className = "";
-      document.getElementById('pw3').className = "";
-
-      // Now light up all cells below-and-including the one selected by changing the class.
-      if (powerLevel >= 1) {
-        document.getElementById('pw1').className = "pw1";
-      }
-
-      if (powerLevel >= 2) {
-        document.getElementById('pw2').className = "pw2";
-      }
-
-      if (powerLevel >= 3) {
-        document.getElementById('pw3').className = "pw3";
-      }
-
-      // Set wheelPower var used when spin button is clicked.
-      this.wheelPower = powerLevel;
-
-      // Light up the spin button by changing it's source image and adding a clickable class to it.
-      //$("#spin_button").attr("src", "../../../assets/wheels/spin_on.png");
-      this.spinButton.nativeElement.src = "../../../assets/wheels/spin_on.png";
-      //document.getElementById('spin_button').src = "../../../assets/wheels/spin_on.png";
-      document.getElementById('spin_button').className = "clickable";
-    }
-  }
-
   // Called by the onClick of the canvas, starts the spinning.
   startSpin() {
+    if(this.isRunning)
+      return;
+    this.isRunning = true;
+    this.winner = '';
+    $('#_winner').text(this.winner);
     // Stop any current animation.
     this.theWheel.stopAnimation(false);
 
@@ -184,37 +142,6 @@ export class WinWheelComponent implements OnInit {
 
     // Start animation.
     this.theWheel.startAnimation();
-  }
-
-  // -------------------------------------------------------
-  // Click handler for spin button.
-  // -------------------------------------------------------
-  startSpinx() {
-    // Ensure that spinning can't be clicked again while already running.
-    if (this.wheelSpinning == false) {
-      // Based on the power level selected adjust the number of spins for the wheel, the more times is has
-      // to rotate with the duration of the animation the quicker the wheel spins.
-      if (this.wheelPower == 1) {
-        this.theWheel.animation.spins = 3;
-      } else if (this.wheelPower == 2) {
-        this.theWheel.animation.spins = 8;
-      } else if (this.wheelPower == 3) {
-        this.theWheel.animation.spins = 15;
-      }
-
-      // Disable the spin button so can't click again while wheel is spinning.
-      //$("#spin_button").attr("src", "../../../assets/wheels/spin_off.png");
-      //document.getElementById('spin_button').src       = "../../../assets/wheels/spin_off.png";
-      this.spinButton.nativeElement.src = "../../../assets/wheels/spin_off.png";
-      document.getElementById('spin_button').className = "";
-
-      // Begin the spin animation by calling startAnimation on the wheel object.
-      this.theWheel.startAnimation();
-
-      // Set to true so that power can't be changed and spin button re-enabled during
-      // the current animation. The user will have to reset before spinning again.
-      this.wheelSpinning = true;
-    }
   }
 
   // -------------------------------------------------------
@@ -230,46 +157,6 @@ export class WinWheelComponent implements OnInit {
     document.getElementById('pw3').className = "";
 
     this.wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
-  }
-
-  // -------------------------------------------------------
-  // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters
-  // note the indicated segment is passed in as a parmeter as 99% of the time you will want to know this to inform the user of their prize.
-  // -------------------------------------------------------
-  alertPrize(indicatedSegment) {
-    // indicatedSegment
-    // Do basic alert of the segment text. You would probably want to do something more interesting with this information.
-    //alert("You have won " + indicatedSegment.text);
-    //this.winner = indicatedSegment.text;
-    //debugger;
-    //let current = selff;
-    //let winningSegment = current.theWheel.getIndicatedSegment();
-    
-    Swal.fire({
-      title: '<span style="color: white;">Tebrikler</span>',
-      html: '<h1><span style="color: white;">' + indicatedSegment.text + '</span></h1>',
-      background: '#fff url("/assets/fire2.gif")',
-      imageUrl:'/assets/cup4.png',
-      imageWidth: 60,
-      imageHeight: 100,
-    }).then(() =>{
-      //current.winner = indicatedSegment.text;
-      console.log(":: Value is Good ::");
-    });
-    
-    /*.then(function(){
-      () => current.winner = 'Erkannn';
-      //current.winner = indicatedSegment.text;
-        console.log(":: Value is Good ::" + current.winner);
-        //this.setData(indicatedSegment.text);
-    });
-    */
-
-  }
-
-  setData(data: any){
-    console.log(":D:D:D " + data);
-    //this.winner = data;
   }
 
 }
