@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule, MatAutocompleteModule } from '@angular/material/';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('InputItemComponent', () => {
   let component: InputItemComponent;
@@ -23,7 +24,8 @@ describe('InputItemComponent', () => {
         MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        RouterTestingModule
       ],
       declarations: [ InputItemComponent ]
     })
