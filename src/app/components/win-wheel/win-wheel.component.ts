@@ -5,6 +5,7 @@ import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.serv
 declare var Winwheel: any;
 import Swal from 'sweetalert2';
 import * as $ from 'jquery';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-win-wheel',
@@ -20,9 +21,17 @@ export class WinWheelComponent implements OnInit {
   isRunning: boolean = false;
 
   @ViewChild('spinButton') spinButton: ElementRef<HTMLInputElement>;
-  constructor(private service: InputWheelService) { }
+  constructor(private service: InputWheelService, private router: Router) { }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        (<any>window).gtag('config', 'UA-134615245-1', {
+          'page_title': 'Win Wheel Page',
+          'page_path': event.urlAfterRedirects
+        });
+      }
+    });
     let audio = new Audio('../../../assets/tick.mp3');
     this.winner = "------";
     $('#_winner').text(this.winner);
@@ -128,7 +137,7 @@ export class WinWheelComponent implements OnInit {
 
   // Called by the onClick of the canvas, starts the spinning.
   startSpin() {
-    if(this.isRunning)
+    if (this.isRunning)
       return;
     this.isRunning = true;
     this.winner = '';

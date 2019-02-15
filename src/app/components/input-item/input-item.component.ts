@@ -6,6 +6,11 @@ import { MatAutocompleteSelectedEvent, MatChipInputEvent, MatAutocomplete } from
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { InputWheelService } from 'src/app/services/input-wheel/input-wheel.service';
+import { Router, NavigationEnd } from '@angular/router';
+
+// This still has to be declared
+//declare var gtag: Function;
+//gtag('config', 'UA-134615245-1');
 
 @Component({
   selector: 'app-input-item',
@@ -26,7 +31,7 @@ export class InputItemComponent implements OnInit {
   @ViewChild('itemInput') itemInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
-  constructor(private service: InputWheelService) {
+  constructor(private service: InputWheelService,private router: Router) {
     this.items = new Set();
     /*this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
         startWith(null),
@@ -35,6 +40,14 @@ export class InputItemComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(event=>{
+      if(event instanceof NavigationEnd){
+        (<any>window).gtag('config', 'UA-134615245-1', {
+          'page_title' : 'Input Item',
+          'page_path': event.urlAfterRedirects
+        });
+      }
+    });
   }
 
   add(event: MatChipInputEvent): void {
