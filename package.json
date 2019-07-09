@@ -8,10 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy" : "gh-pages -d dist"
+    "deploy" : "ng build --prod --output-path dist; gh-pages -d dist"
   },
-  "homepage": "https://coderkan.github.io/cekiliskura",
-  "private": true,
   "dependencies": {
     "@angular/animations": "^7.1.4",
     "@angular/cdk": "^7.2.0",
