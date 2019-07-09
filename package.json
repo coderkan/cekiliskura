@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy" : "ng build --prod --output-path dist; gh-pages -d dist"
+    "deploy" : "ng build --prod --output-path dist; cp src/assets/CNAME dist/; gh-pages -d dist"
   },
   "dependencies": {
     "@angular/animations": "^7.1.4",
