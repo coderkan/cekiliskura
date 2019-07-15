@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule, MatAutocompleteModule } from '@angular/material/';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdsenseModule } from 'ng2-adsense';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -37,6 +38,9 @@ describe('AppComponent', () => {
         AdvertisementComponent,
         InputItemComponent
       ],
+      schemas: [
+        CUSTOM_ELEMENTS_SCHEMA
+      ]
     }).compileComponents();
   }));
    
