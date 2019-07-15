@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy" : "ng build --prod --output-path dist; cp src/assets/CNAME dist/; gh-pages -d dist"
+    "deploy": "ng build --prod --output-path dist; cp src/assets/CNAME dist/; gh-pages -d dist"
   },
   "dependencies": {
     "@angular/animations": "^7.1.4",
@@ -25,6 +25,7 @@
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "jquery": "^3.3.1",
+    "ng2-adsense": "^6.0.0",
     "popper.js": "^1.14.6",
     "rxjs": "~6.3.3",
     "sweetalert2": "^8.0.5",
