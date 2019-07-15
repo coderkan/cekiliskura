@@ -13,6 +13,7 @@ import { MatOptionModule, MatAutocompleteModule } from '@angular/material/';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AdsenseModule } from 'ng2-adsense';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -39,7 +40,8 @@ describe('AppComponent', () => {
         InputItemComponent
       ],
       schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
+        CUSTOM_ELEMENTS_SCHEMA,
+        NO_ERRORS_SCHEMA
       ]
     }).compileComponents();
   }));
