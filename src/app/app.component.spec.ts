@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule, MatAutocompleteModule } from '@angular/material/';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
- 
+import { AdsenseModule } from 'ng2-adsense';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -25,15 +25,17 @@ describe('AppComponent', () => {
         MatAutocompleteModule,
         FormsModule,
         ReactiveFormsModule,
-        BrowserAnimationsModule
+        AdsenseModule.forRoot({
+          adClient: 'ca-pub-8446606602742080',
+          adSlot: 7259870550,
+        })
       ],
       declarations: [
         AppComponent,
         HeaderComponent,
         FooterComponent,
         AdvertisementComponent,
-        InputItemComponent,
-      
+        InputItemComponent
       ],
     }).compileComponents();
   }));
